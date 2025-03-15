@@ -1,0 +1,20 @@
+/* Curseur personnalisé pour l'administration */
+* {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 72 72"><text x="0" y="56" font-size="48">🖕</text></svg>'), auto !important;
+}
+
+/* Curseur pour les éléments interactifs */
+a, button, input[type="submit"], input[type="button"], 
+select, .clickable, .btn, .nav-link, 
+input[type="checkbox"], input[type="radio"],
+.sidebar-nav a, .dropdown-item, .card-header,
+table tbody tr, .action-button, .modal-close {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 72 72"><text x="0" y="56" font-size="48">🖕</text></svg>'), pointer !important;
+}
+
+/* Conserver le curseur texte pour les champs de saisie */
+input[type="text"], input[type="password"], 
+input[type="email"], input[type="number"],
+textarea {
+    cursor: text !important;
+}

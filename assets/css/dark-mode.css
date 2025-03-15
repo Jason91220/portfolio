@@ -1,0 +1,134 @@
+/* Light mode - hide sun icon */
+.light-icon {
+    display: none;
+}
+
+.dark-mode .dark-icon {
+    display: none;
+}
+
+.dark-mode .light-icon {
+    display: inline-block;
+}
+
+.dark-mode {
+    --background-color: #000000;
+    --text-color: #ffffff;
+    --text-color-secondary: #a0a0a0;
+    --secondary-bg: #121212;
+    --card-bg: rgba(28, 28, 30, 0.95);
+    --nav-bg: rgba(0, 0, 0, 0.95);
+    --primary-color: #00c6ff;
+    --accent-color: #00c6ff;
+    --button-hover: #0056b3;
+    --border-color: rgba(255, 255, 255, 0.2);
+    --error-color: #ff4444;
+    --success-color: #00C851;
+    --focus-color: #00c6ff;
+    --input-bg: rgba(0, 0, 0, 0.2);
+    --placeholder-color: rgba(255, 255, 255, 0.5);
+}
+
+.dark-mode .skill-icon i {
+    color: var(--accent-color);
+}
+
+.dark-mode .skill-card:hover .skill-icon i {
+    color: var(--primary-color);
+}
+
+.dark-mode .control-btn {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .control-btn:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #000;
+}
+
+/* Form styles for dark mode */
+.dark-mode .contact-form {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+.dark-mode .form-group input,
+.dark-mode .form-group textarea {
+    background: var(--input-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.dark-mode .form-group input::placeholder,
+.dark-mode .form-group textarea::placeholder {
+    color: var(--placeholder-color);
+}
+
+.dark-mode .form-group input:hover,
+.dark-mode .form-group textarea:hover {
+    border-color: var(--accent-color);
+}
+
+.dark-mode .form-group input:focus,
+.dark-mode .form-group textarea:focus {
+    border-color: var(--accent-color);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .submit-btn {
+    background: var(--accent-color);
+    color: #000;
+}
+
+.dark-mode .submit-btn:hover {
+    background: var(--button-hover);
+    color: #fff;
+}
+
+.dark-mode .nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.dark-mode .card {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .mouse {
+    border-color: var(--text-color);
+}
+
+.dark-mode .mouse::before {
+    background: var(--text-color);
+}
+
+/* Logo color change based on mode */
+/* Light mode is already handled in style.css with filter: brightness(0) */
+
+.dark-mode .logo img {
+    filter: brightness(100) saturate(0%); /* White logo in dark mode */
+}
+
+/* Assurer que le h1 a le même dégradé linéaire en mode sombre */
+.dark-mode .hero-section h1 {
+    background: linear-gradient(135deg, #0066CC, #00c6ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Correction pour les mentions légales en mode sombre */
+.dark-mode .accordion-toggle {
+    color: var(--text-color);
+}
+
+.dark-mode .legal-content {
+    color: var(--text-color);
+}
+
+.dark-mode .accordion-toggle:hover {
+    background: var(--primary-color);
+    color: white;
+}
+

@@ -1,0 +1,27 @@
+# Règles spécifiques pour le dossier admin
+# Ce fichier .htaccess surcharge les règles du fichier .htaccess parent
+
+# Activer le moteur de réécriture
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Permettre l'accès direct à tous les fichiers PHP dans ce dossier
+    # La vérification d'authentification est gérée par auth_check.php
+    # qui est inclus dans chaque fichier PHP (sauf login.php)
+    
+    # Protéger contre les attaques par injection
+    RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+    RewriteRule ^(.*)$ /403.php [L]
+</IfModule>
+
+# Désactiver l'affichage du contenu des répertoires
+Options -Indexes
+
+# Protection contre les attaques XSS
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>

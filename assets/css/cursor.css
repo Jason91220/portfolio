@@ -1,0 +1,83 @@
+/* Curseur personnalisé */
+:root {
+    --cursor-size: 20px;
+    --cursor-dot-size: 6px;
+    --cursor-border-width: 2px;
+    --cursor-color: #0066CC; /* Bleu en mode clair */
+    --cursor-dot-color: #0066CC; /* Bleu en mode clair */
+}
+
+/* Masquer le curseur par défaut */
+body {
+    cursor: none;
+}
+
+/* Curseur personnalisé principal */
+.custom-cursor {
+    position: fixed;
+    width: var(--cursor-size);
+    height: var(--cursor-size);
+    border: var(--cursor-border-width) solid var(--cursor-color);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, border-color 0.2s;
+    z-index: 9999;
+    mix-blend-mode: normal;
+}
+
+/* Point central du curseur */
+.cursor-dot {
+    position: fixed;
+    width: var(--cursor-dot-size);
+    height: var(--cursor-dot-size);
+    background-color: var(--cursor-dot-color);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    mix-blend-mode: normal;
+}
+
+/* Animation lors du survol des éléments interactifs */
+.custom-cursor.hover {
+    width: calc(var(--cursor-size) * 1.5);
+    height: calc(var(--cursor-size) * 1.5);
+    border-color: #0066CC;
+    background-color: rgba(0, 102, 204, 0.1);
+    mix-blend-mode: normal;
+}
+
+/* Animation lors du clic */
+.custom-cursor.click {
+    width: calc(var(--cursor-size) * 0.8);
+    height: calc(var(--cursor-size) * 0.8);
+    background-color: rgba(0, 102, 204, 0.2);
+    transition: width 0.1s, height 0.1s;
+}
+
+/* Adaptation pour les appareils tactiles et mobiles */
+@media (max-width: 768px), (pointer: coarse) {
+    body {
+        cursor: auto;
+    }
+    
+    .custom-cursor,
+    .cursor-dot {
+        display: none;
+    }
+}
+
+/* Adaptation pour le mode sombre */
+.dark-mode .custom-cursor {
+    border-color: #00a8ff;
+}
+
+.dark-mode .cursor-dot {
+    background-color: #00a8ff;
+}
+
+.dark-mode .custom-cursor.hover {
+    border-color: #00a8ff;
+    background-color: rgba(0, 168, 255, 0.1);
+}

@@ -1,0 +1,64 @@
+# Protection contre l'accès direct aux fichiers PHP
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Autoriser l'accès aux pages principales du site
+    RewriteCond %{REQUEST_URI} !^/index\.php$
+    RewriteCond %{REQUEST_URI} !^/contact\.php$
+    RewriteCond %{REQUEST_URI} !^/about\.php$
+    RewriteCond %{REQUEST_URI} !^/projects\.php$
+    RewriteCond %{REQUEST_URI} !^/skills\.php$
+    RewriteCond %{REQUEST_URI} !^/403\.php$
+    RewriteCond %{REQUEST_URI} !^/404\.php$
+    
+    # Autoriser l'accès à tous les fichiers dans le dossier admin
+    RewriteCond %{REQUEST_URI} !^/admin/.*$
+    
+    # Autoriser l'accès aux fichiers non-PHP
+    RewriteCond %{REQUEST_URI} !\.(css|js|jpg|jpeg|png|gif|svg|ico|ttf|woff|woff2|eot|pdf|doc|docx|xls|xlsx|zip|rar|txt)$
+    
+    # Bloquer l'accès direct aux fichiers PHP
+    RewriteCond %{REQUEST_URI} \.php$
+    
+    # Rediriger vers la page 403
+    RewriteRule .* /403.php [L]
+</IfModule>
+
+# La protection du dossier admin est maintenant gérée par auth_check.php
+# Chaque page admin inclut ce fichier qui vérifie si l'utilisateur est connecté
+# et redirige vers login.php si nécessaire
+
+# Désactiver l'affichage du contenu des répertoires
+Options -Indexes
+
+# Protection contre les injections PHP
+<IfModule mod_rewrite.c>
+    RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+    RewriteRule ^(.*)$ /403.php [L]
+</IfModule>
+
+# Protection contre les attaques XSS
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# Protection supplémentaire pour les fichiers sensibles
+<FilesMatch "^(config\.php|.*\.inc\.php|.*\.class\.php)$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Gestion des erreurs 404 - Page introuvable
+<IfModule mod_rewrite.c>
+    # Rediriger les URLs inexistantes vers la page 404 personnalisée
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ /404.php [L]
+</IfModule>
+
+# Définir la page d'erreur 404 personnalisée
+ErrorDocument 404 /404.php
